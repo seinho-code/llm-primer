@@ -1,5 +1,28 @@
 # 04 Transformer 架构
 
+## 这章怎么读
+
+Transformer 这一章不适合一口气死记硬背所有名词。  
+更好的顺序是：先抓住它解决了什么问题，再看 attention 怎么工作，最后再看多头、位置编码、KV Cache 这些工程细节。
+
+如果你觉得公式密，可以一直带着这 3 个问题往下读：
+
+- 当前 token 在“看谁”
+- 它是按什么分配注意力权重
+- 这种结构为什么比 RNN 更容易扩展到超大模型
+
+## 先记住这条骨架
+
+```mermaid
+flowchart LR
+  A["Token IDs"] --> B["Embedding"]
+  B --> C["Self-Attention"]
+  C --> D["MLP"]
+  D --> E["重复多层"]
+  E --> F["Logits"]
+  F --> G["下一个 token"]
+```
+
 Transformer 是现代大模型的核心架构。理解它，不只是记住 `Q/K/V`，而是要看清楚它如何在并行计算、长程依赖、表示学习和工程扩展性之间取得平衡。
 
 ## 1. Transformer 解决了什么问题
